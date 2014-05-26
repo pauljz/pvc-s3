@@ -36,9 +36,6 @@ namespace PvcPlugins
             this.secretKey = secretKey != null ? secretKey : PvcS3.SecretKey;
             this.bucketName = bucketName != null ? bucketName : PvcS3.BucketName;
 
-            Console.WriteLine(this.accessKey);
-            Console.WriteLine(this.secretKey);
-
             AWSCredentials creds = new BasicAWSCredentials(this.accessKey, this.secretKey);
             this.client = new AmazonS3Client(creds, this.regionEndpoint);
         }
