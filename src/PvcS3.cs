@@ -10,6 +10,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 
 namespace PvcPlugins
 {
@@ -118,6 +119,12 @@ namespace PvcPlugins
                 uploadReq.InputStream = inputStream;
                 uploadReq.Key = this.StreamNameToKey(inputStream.StreamName);
                 uploadReq.Headers.ContentMD5 = this.keyMD5Sums[uploadReq.Key];
+
+                uploadReq.Headers.ContentType = MimeMapping.GetMimeMapping(inputStream.StreamName);
+                if (inputStream.Tags.Contains("gzip"))
+                {
+                    uploadReq.Headers.ContentEncoding = "gzip";
+                }
 
                 transfer.Upload(uploadReq);
             };
